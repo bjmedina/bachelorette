@@ -49,7 +49,7 @@ for URL in urls_to_scrape:
         # # When we do the above ^ there's an empty white space at the front the line...
         # # we can get rid of it (also let's get of punctuation too)
         current_line = current_line.strip()
-        #current_line = re.sub(r'[^\w\s]', '', current_line)
+        current_line = re.sub(r'[^(\w\s)]', '', current_line)
         
         print(current_line)
 
