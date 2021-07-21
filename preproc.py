@@ -2,6 +2,7 @@
 from bs4 import BeautifulSoup
 
 import random as random
+import re
 import requests
 import sys
 
@@ -38,8 +39,20 @@ for URL in urls_to_scrape:
     results = soup.find("div", class_="postbody").find_all("p")
 
     for element in results:
-        print(element.text)
+        # want to clean this up a bit.
 
-# redirecting output to o.g.
+        # one thing we can do is remove of the instances of "[name]:" in strings.
+        # # i don't think names are that useful to have in language models.
+        current_line = element.text
+        current_line = re.sub(r'\w*:', '', current_line)
+
+        # # When we do the above ^ there's an empty white space at the front the line...
+        # # we can get rid of it (also let's get of punctuation too)
+        current_line = current_line.strip()
+        #current_line = re.sub(r'[^\w\s]', '', current_line)
+        
+        print(current_line)
+
+# redirecting output to o.g.output
 sys.stdout = orig_stdout
 f.close()
